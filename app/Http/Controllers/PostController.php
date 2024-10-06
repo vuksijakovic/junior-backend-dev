@@ -88,10 +88,9 @@ class PostController extends Controller
     {
         $referer = request()->headers->get('referer');
 
-        if ($referer && strpos($referer, '/posts/' . $id) !== false && request()->isMethod('get')) {
+        if ($referer && strpos($referer, '/posts/'.$id) !== false) {
             return response()->json(['error' => 'Cannot delete post from this route.'], 403);
         }
-        dd($referer);
         $post = Post::findOrFail($id);
         if ($post->user_id != Auth::id() && Auth::user()->role != "admin") {
             abort(403, 'Unauthorized action.');

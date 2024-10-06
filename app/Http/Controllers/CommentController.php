@@ -14,10 +14,9 @@ class CommentController extends Controller
             'comment' => 'required|max:500',
         ]);
 
-        // Kreiraj novi komentar
         $comment = new Comment([
             'comment' => $request->comment,
-            'user_id' => Auth::id(), // ID trenutnog korisnika
+            'user_id' => Auth::id(), 
         ]);
 
         $post->comments()->save($comment);
