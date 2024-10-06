@@ -42,13 +42,13 @@ class PostController extends Controller
     
     public function show($id)
 {
-    $post = Post::with(['user', 'comments.user'])->findOrFail($id); // Load post's user and each comment's user
-    $currentUser = Auth::user(); // Get the current authenticated user
+    $post = Post::with(['user', 'comments.user'])->findOrFail($id);
+    $currentUser = Auth::user(); 
     $sorted = $post->comments->sortByDesc('created_at');
     return Inertia::render('SinglePost', [
         'post' => $post,
         'comments' => $sorted->values()->all(),
-        'currentUser' => $currentUser, // Pass the current user
+        'currentUser' => $currentUser, 
     ]);
 }
 
@@ -83,7 +83,7 @@ class PostController extends Controller
         return response()->json(['success' => 'Post updated successfully.']);
     }
 
-    // Brisanje posta (samo vlasnik ili admin može brisati)
+
     public function destroy($id)
     {
         $referer = request()->headers->get('referer');
